@@ -1,0 +1,16 @@
+{
+    "name": "<your-workspace-name>",
+    "friendlyName": "<your-friendly-name>",
+    "resourceGroup": "<your-resource-group-name>",
+    "createResourceGroup": true,
+    "location": "<your-workspace-location>",
+    "sku": "<your-sku>",
+    "storageAccount": "Microsoft.Storage/storageAccounts/<your-storage-account-name>",
+    "keyVault": "Microsoft.KeyVault/vaults/<your-key-vault-name>",
+    "appInsights": "Microsoft.Insights/components/<your-app-insights-name>",
+    "containerRegistry": "Microsoft.ContainerRegistry/registries/<your-container-registry-name>",
+    "cmkKeyVault": "Microsoft.KeyVault/vaults/<your-key-vault-name>",
+    "resourceCmkUri": "<your-cmk-uri>",
+    "hbiWorkspace": false,
+    "createWorkspace": false
+}
