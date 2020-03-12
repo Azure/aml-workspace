@@ -12,7 +12,10 @@ def main():
     print("::debug::Loading input values")
     parameters_file = os.environ.get("INPUT_PARAMETERSFILE", default="workspace.json")
     azure_credentials = os.environ.get("INPUT_AZURECREDENTIALS", default="{}")
-    azure_credentials = json.loads(azure_credentials)
+    try:
+        azure_credentials = json.loads(azure_credentials)
+    except ValueError:
+        print("::error::Please paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS")
 
     # Loading parameters file
     print("::debug::Loading parameters file")

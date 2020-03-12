@@ -127,3 +127,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+.vs/VSWorkspaceState.json
+.vs/aml-workspace/v16/.suo
