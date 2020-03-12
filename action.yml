@@ -5,7 +5,6 @@ inputs:
   azureCredentials:
     description: "Paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS"
     required: true
-    default: "{}"
   parametersFile:
     description: "JSON file including the parameters of the workspace."
     required: false
