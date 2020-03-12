@@ -16,6 +16,7 @@ def main():
         azure_credentials = json.loads(azure_credentials)
     except ValueError:
         print("::error::Please paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS")
+        return
 
     # Loading parameters file
     print("::debug::Loading parameters file")
