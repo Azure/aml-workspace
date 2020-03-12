@@ -5,6 +5,7 @@ from azureml.exceptions import WorkspaceException, AuthenticationException, Proj
 from azureml.core.authentication import ServicePrincipalAuthentication
 from adal.adal_error import AdalError
 from msrest.exceptions import AuthenticationError
+from json import JSONDecodeError
 
 
 def main():
@@ -14,7 +15,7 @@ def main():
     azure_credentials = os.environ.get("INPUT_AZURECREDENTIALS", default="{}")
     try:
         azure_credentials = json.loads(azure_credentials)
-    except ValueError:
+    except JSONDecodeError:
         print("::error::Please paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS")
         return
 
