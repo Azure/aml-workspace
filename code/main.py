@@ -7,7 +7,7 @@ from azureml.core.authentication import ServicePrincipalAuthentication
 from adal.adal_error import AdalError
 from msrest.exceptions import AuthenticationError
 from json import JSONDecodeError
-from utils import required_parameters_provided
+from utils import required_parameters_provided, AMLConfigurationException
 
 
 def main():
@@ -23,7 +23,7 @@ def main():
         azure_credentials.get("subscriptionId")
     except JSONDecodeError:
         print("::error::Please paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS. The JSON should include the following keys: 'tenantId', 'clientId', 'clientSecret' and 'subscriptionId'.")
-        return
+        raise AMLConfigurationException(f"Incorrect or poorly formed output from azure login saved in AZURE_CREDENTIALS secret. See setup in https://github.com/Azure/aml-workspace/blob/master/README.md")
 
     # Loading parameters file
     print("::debug::Loading parameters file")
@@ -32,8 +32,8 @@ def main():
         with open(parameters_file_path) as f:
             parameters = json.load(f)
     except FileNotFoundError:
-        print(f"::error::Could not find parameter file in {parameters_file_path}. Please provide a parameter file in your repository (e.g. .aml/workspace.json).")
-        return
+        print(f"::error::Could not find parameter file in {parameters_file_path}. Please provide a parameter file in your repository (e.g. .ml/.azure/workspace.json).")
+        raise AMLConfigurationException(f"Could not find parameter file in {parameters_file_path}. Please provide a parameter file in your repository (e.g. .ml/.azure/workspace.json).")
     
     # Checking if all required parameters were provided for loading a workspace
     required_parameters_provided(
@@ -58,16 +58,16 @@ def main():
         print("::debug::Successfully loaded existing Workspace")
     except AuthenticationException as exception:
         print(f"::error::Could not retrieve user token. Please paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS: {exception}")
-        return
+        raise AuthenticationException
     except AuthenticationError as exception:
         print(f"::error::Microsoft REST Authentication Error: {exception}")
-        return
+        raise AuthenticationException
     except AdalError as exception:
         print(f"::error::Active Directory Authentication Library Error: {exception}")
-        return
+        raise AdalError
     except ProjectSystemException as exception:
         print(f"::error::Workspace authorizationfailed: {exception}")
-        return
+        raise ProjectSystemException
     except WorkspaceException as exception:
         print(f"::debug::Loading existing Workspace failed: {exception}")
         if parameters.get("createWorkspace", False):
@@ -99,7 +99,7 @@ def main():
                 )
             except WorkspaceException as exception:
                 print(f"::error::Creating new Workspace failed: {exception}")
-                return
+                raise WorkspaceException()
 
     # Write Workspace ARM properties to config file
     print("::debug::Writing Workspace ARM properties to config file")
@@ -109,7 +109,7 @@ def main():
         path=config_file_path,
         file_name=config_file_name
     )
-    print("::debug::Successfully finised Azure Machine Learning Workspace Action")
+    print("::debug::Successfully finished Azure Machine Learning Workspace Action")
 
 
 if __name__ == "__main__":

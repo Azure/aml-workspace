@@ -3,7 +3,7 @@
 
 ## Usage
 
-Description.
+The Azure Machine Learning Workspace action will allow you to connect to a remote workspace so you can later run your Machine Learning experiments remotely, create production endpoints etc. If the workspace exists, it will connect to it, otherwise the action will create a new workspace. You will need to have azure credentials that allow you to create and/or connect to a workspace. The action will output a config file that needs to be passed to the next AML actions if you are looking to chain more than one AML action together.
 
 ### Example workflow
 
@@ -17,24 +17,18 @@ jobs:
     - uses: actions/checkout@master
     - name: Run action
 
-    steps:
-    - uses: actions/checkout@master
-    - name: Run action
-
-      # Put your action repo here
-      uses: me/myaction@master
-
-      # Put an example of your mandatory inputs here
+      # AML Workspace Action
+    - uses: azure/AMLWorkspace@master
+      # required inputs as secrets
       with:
-        myInput: world
+        azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
 ```
 
 ### Inputs
 
 | Input                                             | Description                                        |
 |------------------------------------------------------|-----------------------------------------------|
-| `myInput`  | An example mandatory input    |
-| `anotherInput` _(optional)_  | An example optional input    |
+| `AZURE_CREDENTIALS`  | Output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth`. This should be stored in your secrets    |
 
 #### Parameter File
 
@@ -57,46 +51,9 @@ A sample file can be found in this repository in the folder `.aml`. The action e
 | resourceCmkUri      |          | str: key URI of the customer managed key | null       |
 | hbiWorkspace        |          | bool: true, false                        | false      |
 
-
 ### Outputs
 
 | Output                                             | Description                                        |
 |------------------------------------------------------|-----------------------------------------------|
-| `myOutput`  | An example output (returns 'Hello world')    |
+| `azureml/aml_arm_config.json`  | configurations to be passed to additional steps for using the workspace    |
 
-## Examples
-
-
-
-### Using the optional input
-
-This is how to use the optional input.
-
-```yaml
-with:
-  myInput: world
-  anotherInput: optional
-```
-
-### Using outputs
-
-Show people how to use your outputs in another action.
-
-```yaml
-steps:
-- uses: actions/checkout@master
-- name: Run action
-  id: myaction
-
-  # Put your action name here
-  uses: me/myaction@master
-
-  # Put an example of your mandatory arguments here
-  with:
-    myInput: world
-
-# Put an example of using your outputs here
-- name: Check outputs
-    run: |
-    echo "Outputs - ${{ steps.myaction.outputs.myOutput }}"
-```
