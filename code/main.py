@@ -34,7 +34,7 @@ def main():
     except FileNotFoundError:
         print(f"::error::Could not find parameter file in {parameters_file_path}. Please provide a parameter file in your repository (e.g. .aml/workspace.json).")
         return
-    
+
     # Checking if all required parameters were provided for loading a workspace
     required_parameters_provided(
         parameters=parameters,
