@@ -41,8 +41,9 @@ jobs:
 A sample file can be found in this repository in the folder `.aml`. The action expects a similar parameter file in your repository in the `.aml folder`.
 
 | Parameter Name      | Required | Allowed Values                           | Default    | Description |
-| ------------------- | -------- | ---------------------------------------- | ---------- |
+| ------------------- | -------- | ---------------------------------------- | ---------- | ----------- |
 | name                | x        | str                                      | no default | For more details please read [here](https://docs.microsoft.com/en-us/python/api/azureml-core/azureml.core.workspace.workspace?view=azure-ml-py#create-name--auth-none--subscription-id-none--resource-group-none--location-none--create-resource-group-true--sku--basic---friendly-name-none--storage-account-none--key-vault-none--app-insights-none--container-registry-none--cmk-keyvault-none--resource-cmk-uri-none--hbi-workspace-false--default-cpu-compute-target-none--default-gpu-compute-target-none--exist-ok-false--show-output-true-) |
+| resourceGroup       | x        | str                                      | no default |             |
 | createWorkspace     |          | bool: true, false                        | false      | Create Workspace if it could not be loaded |
 | friendlyName        |          | str                                      | null       |
 | createResourceGroup |          | bool: true, false                        | null       |

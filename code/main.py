@@ -7,6 +7,7 @@ from azureml.core.authentication import ServicePrincipalAuthentication
 from adal.adal_error import AdalError
 from msrest.exceptions import AuthenticationError
 from json import JSONDecodeError
+from utils import required_parameters_provided
 
 
 def main():
@@ -16,13 +17,17 @@ def main():
     azure_credentials = os.environ.get("INPUT_AZURECREDENTIALS", default="{}")
     try:
         azure_credentials = json.loads(azure_credentials)
+        azure_credentials.get("tenantId")
+        azure_credentials.get("clientId")
+        azure_credentials.get("clientSecret")
+        azure_credentials.get("subscriptionId")
     except JSONDecodeError:
-        print("::error::Please paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS")
+        print("::error::Please paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS. The JSON should include the following keys: 'tenantId', 'clientId', 'clientSecret' and 'subscriptionId'.")
         return
 
     # Loading parameters file
     print("::debug::Loading parameters file")
-    parameters_file_path = os.path.join(".aml", parameters_file)
+    parameters_file_path = os.path.join(".aml", ".azure", parameters_file)
     try:
         with open(parameters_file_path) as f:
             parameters = json.load(f)
@@ -30,10 +35,11 @@ def main():
         print(f"::error::Could not find parameter file in {parameters_file_path}. Please provide a parameter file in your repository (e.g. .aml/workspace.json).")
         return
     
-    # Checking if all required parameters were provided
-    if not parameters.get("name", None):
-        print(f"::error::Could not find 'name' key in your parameter file in {parameters_file_path}. Please provide the name of your workspace in your parameters file (e.g. {'name': '<your-workspace-name>'} ).")
-        return
+    # Checking if all required parameters were provided for loading a workspace
+    required_parameters_provided(
+        parameters=parameters,
+        keys=["name", "resource_group"]
+    )
 
     # Loading Workspace
     sp_auth = ServicePrincipalAuthentication(
@@ -65,6 +71,11 @@ def main():
     except WorkspaceException as exception:
         print(f"::debug::Loading existing Workspace failed: {exception}")
         if parameters.get("createWorkspace", False):
+            # Checking if all required parameters were provided for loading a workspace
+            required_parameters_provided(
+                parameters=parameters,
+                keys=["name", "resource_group"]
+            )
             try:
                 print("::debug::Creating new Workspace")
                 ws = Workspace.create(
@@ -82,7 +93,9 @@ def main():
                     cmk_keyvault=parameters.get("cmkKeyVault", None),
                     resource_cmk_uri=parameters.get("resourceCmkUri", None),
                     hbi_workspace=parameters.get("hbiWorkspace", None),
-                    auth=sp_auth
+                    auth=sp_auth,
+                    exist_ok=True,
+                    show_output=True
                 )
             except WorkspaceException as exception:
                 print(f"::error::Creating new Workspace failed: {exception}")
