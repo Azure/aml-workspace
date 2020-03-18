@@ -1,5 +1,3 @@
-import sys
-
 class AMLConfigurationException(Exception):
     pass
 
