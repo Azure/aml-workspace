@@ -1,4 +1,5 @@
-import os, json
+import os
+import json
 
 from azureml.core import Workspace
 from azureml.exceptions import WorkspaceException, AuthenticationException, ProjectSystemException
