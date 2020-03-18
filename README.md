@@ -1,6 +1,5 @@
 # Azure Machine Learning Workspace Action
 
-
 ## Usage
 
 The Azure Machine Learning Workspace action will allow you to connect to a remote workspace so you can later run your Machine Learning experiments remotely, create production endpoints etc. If the workspace exists, it will connect to it, otherwise the action will create a new workspace. You will need to have azure credentials that allow you to create and/or connect to a workspace. The action will output a config file that needs to be passed to the next AML actions if you are looking to chain more than one AML action together.
@@ -56,4 +55,3 @@ A sample file can be found in this repository in the folder `.aml`. The action e
 | Output                                             | Description                                        |
 |------------------------------------------------------|-----------------------------------------------|
 | `azureml/aml_arm_config.json`  | configurations to be passed to additional steps for using the workspace    |
-
