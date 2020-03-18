@@ -1,5 +1,6 @@
 {
     "name": "<your-workspace-name>",
+    "createWorkspace": false,
     "friendlyName": "<your-friendly-name>",
     "resourceGroup": "<your-resource-group-name>",
     "createResourceGroup": true,
@@ -11,6 +12,5 @@
     "containerRegistry": "Microsoft.ContainerRegistry/registries/<your-container-registry-name>",
     "cmkKeyVault": "Microsoft.KeyVault/vaults/<your-key-vault-name>",
     "resourceCmkUri": "<your-cmk-uri>",
-    "hbiWorkspace": false,
-    "createWorkspace": false
+    "hbiWorkspace": false
 }

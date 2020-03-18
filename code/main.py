@@ -28,6 +28,11 @@ def main():
     except FileNotFoundError:
         print(f"::error::Could not find parameter file in {parameters_file_path}. Please provide a parameter file in your repository (e.g. .aml/workspace.json).")
         return
+    
+    # Checking if all required parameters were provided
+    if not parameters.get("name", None):
+        print(f"::error::Could not find 'name' key in your parameter file in {parameters_file_path}. Please provide the name of your workspace in your parameters file (e.g. {'name': '<your-workspace-name>'} ).")
+        return
 
     # Loading Workspace
     sp_auth = ServicePrincipalAuthentication(
