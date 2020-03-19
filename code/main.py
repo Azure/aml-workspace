@@ -27,7 +27,7 @@ def main():
 
     # Loading parameters file
     print("::debug::Loading parameters file")
-    parameters_file_path = os.path.join(".aml", ".azure", parameters_file)
+    parameters_file_path = os.path.join(".ml", ".azure", parameters_file)
     try:
         with open(parameters_file_path) as f:
             parameters = json.load(f)
