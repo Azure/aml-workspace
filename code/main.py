@@ -21,7 +21,8 @@ def main():
         print("::error::Please paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS. The JSON should include the following keys: 'tenantId', 'clientId', 'clientSecret' and 'subscriptionId'.")
         raise AMLConfigurationException(f"Incorrect or poorly formed output from azure credentials saved in AZURE_CREDENTIALS secret. See setup in https://github.com/Azure/aml-workspace/blob/master/README.md")
 
-    # Checking if all required parameters were provided for logging in to the workspace
+    # Checking provided parameters
+    print("::debug::Checking provided parameters")
     required_parameters_provided(
         parameters=azure_credentials,
         keys=["tenantId", "clientId", "clientSecret", "subscriptionId"],
@@ -38,7 +39,8 @@ def main():
         print(f"::error::Could not find parameter file in {parameters_file_path}. Please provide a parameter file in your repository (e.g. .ml/.azure/workspace.json).")
         raise AMLConfigurationException(f"Could not find parameter file in {parameters_file_path}. Please provide a parameter file in your repository (e.g. .ml/.azure/workspace.json).")
 
-    # Checking if all required parameters were provided for loading a workspace
+    # Checking provided parameters
+    print("::debug::Checking provided parameters")
     required_parameters_provided(
         parameters=parameters,
         keys=["name", "resourceGroup"],
@@ -75,7 +77,8 @@ def main():
     except WorkspaceException as exception:
         print(f"::debug::Loading existing Workspace failed: {exception}")
         if parameters.get("createWorkspace", False):
-            # Checking if all required parameters were provided for loading a workspace
+            # Checking provided parameters
+            print("::debug::Checking provided parameters")
             required_parameters_provided(
                 parameters=parameters,
                 keys=["name", "resourceGroup"],
