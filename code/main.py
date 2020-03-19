@@ -17,13 +17,16 @@ def main():
     azure_credentials = os.environ.get("INPUT_AZURECREDENTIALS", default="{}")
     try:
         azure_credentials = json.loads(azure_credentials)
-        azure_credentials.get("tenantId")
-        azure_credentials.get("clientId")
-        azure_credentials.get("clientSecret")
-        azure_credentials.get("subscriptionId")
     except JSONDecodeError:
         print("::error::Please paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS. The JSON should include the following keys: 'tenantId', 'clientId', 'clientSecret' and 'subscriptionId'.")
         raise AMLConfigurationException(f"Incorrect or poorly formed output from azure credentials saved in AZURE_CREDENTIALS secret. See setup in https://github.com/Azure/aml-workspace/blob/master/README.md")
+
+    # Checking if all required parameters were provided for logging in to the workspace
+    required_parameters_provided(
+        parameters=azure_credentials,
+        keys=["tenantId", "clientId", "clientSecret", "subscriptionId"],
+        message="Required parameter(s) not found in your azure credentials saved in AZURE_CREDENTIALS secret for logging in to the workspace. Please provide a value for the following key(s): "
+    )
 
     # Loading parameters file
     print("::debug::Loading parameters file")
@@ -38,7 +41,8 @@ def main():
     # Checking if all required parameters were provided for loading a workspace
     required_parameters_provided(
         parameters=parameters,
-        keys=["name", "resourceGroup"]
+        keys=["name", "resourceGroup"],
+        message="Required parameter(s) not found in your parameters file for loading a workspace. Please provide a value for the following key(s): "
     )
 
     # Loading Workspace
@@ -74,7 +78,8 @@ def main():
             # Checking if all required parameters were provided for loading a workspace
             required_parameters_provided(
                 parameters=parameters,
-                keys=["name", "resourceGroup"]
+                keys=["name", "resourceGroup"],
+                message="Required parameter(s) not found in your parameters file for creating a workspace. Please provide a value for the following key(s): "
             )
             try:
                 print("::debug::Creating new Workspace")
@@ -99,7 +104,10 @@ def main():
                 )
             except WorkspaceException as exception:
                 print(f"::error::Creating new Workspace failed: {exception}")
-                raise WorkspaceException()
+                raise AMLConfigurationException(f"Creating new Workspace failed with 'WorkspaceException': {exception}.")
+        else:
+            print(f"::error::Loading existing Workspace failed with 'WorkspaceException' and new Workspace will not be created because parameter 'createWorkspace' was not defined or set to false in your parameter file: {exception}")
+            raise AMLConfigurationException("Loading existing Workspace failed with 'WorkspaceException' and new Workspace will not be created because parameter 'createWorkspace' was not defined or set to false in your parameter file.")
 
     # Write Workspace ARM properties to config file
     print("::debug::Writing Workspace ARM properties to config file")
