@@ -38,7 +38,7 @@ def main():
     # Checking if all required parameters were provided for loading a workspace
     required_parameters_provided(
         parameters=parameters,
-        keys=["name", "resource_group"]
+        keys=["name", "resourceGroup"]
     )
 
     # Loading Workspace
@@ -52,7 +52,7 @@ def main():
         ws = Workspace.get(
             name=parameters.get("name", None),
             subscription_id=azure_credentials.get("subscriptionId", ""),
-            resource_group=parameters.get("resource_group", None),
+            resource_group=parameters.get("resourceGroup", None),
             auth=sp_auth
         )
         print("::debug::Successfully loaded existing Workspace")
@@ -74,7 +74,7 @@ def main():
             # Checking if all required parameters were provided for loading a workspace
             required_parameters_provided(
                 parameters=parameters,
-                keys=["name", "resource_group"]
+                keys=["name", "resourceGroup"]
             )
             try:
                 print("::debug::Creating new Workspace")
