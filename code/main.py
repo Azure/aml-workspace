@@ -43,7 +43,7 @@ def main():
     print("::debug::Checking provided parameters")
     required_parameters_provided(
         parameters=parameters,
-        keys=["name", "resourceGroup"],
+        keys=["name", "resource_group"],
         message="Required parameter(s) not found in your parameters file for loading a workspace. Please provide a value for the following key(s): "
     )
 
@@ -58,7 +58,7 @@ def main():
         ws = Workspace.get(
             name=parameters.get("name", None),
             subscription_id=azure_credentials.get("subscriptionId", ""),
-            resource_group=parameters.get("resourceGroup", None),
+            resource_group=parameters.get("resource_group", None),
             auth=sp_auth
         )
         print("::debug::Successfully loaded existing Workspace")
@@ -76,31 +76,24 @@ def main():
         raise ProjectSystemException
     except WorkspaceException as exception:
         print(f"::debug::Loading existing Workspace failed: {exception}")
-        if parameters.get("createWorkspace", False):
-            # Checking provided parameters
-            print("::debug::Checking provided parameters")
-            required_parameters_provided(
-                parameters=parameters,
-                keys=["name", "resourceGroup"],
-                message="Required parameter(s) not found in your parameters file for creating a workspace. Please provide a value for the following key(s): "
-            )
+        if parameters.get("create_workspace", False):
             try:
                 print("::debug::Creating new Workspace")
                 ws = Workspace.create(
                     name=parameters.get("name", None),
-                    subscription_id=azure_credentials.get("subscriptionId", ""),
-                    resource_group=parameters.get("resourceGroup", None),
+                    subscription_id=azure_credentials.get("subscription_id", ""),
+                    resource_group=parameters.get("resource_group", None),
                     location=parameters.get("location", None),
-                    create_resource_group=parameters.get("createResourceGroup", False),
+                    create_resource_group=parameters.get("create_resource_group", False),
                     sku=parameters.get("sku", "basic"),
-                    friendly_name=parameters.get("friendlyName", None),
-                    storage_account=parameters.get("storageAccount", None),
-                    key_vault=parameters.get("keyVault", None),
-                    app_insights=parameters.get("appInsights", None),
-                    container_registry=parameters.get("containerRegistry", None),
-                    cmk_keyvault=parameters.get("cmkKeyVault", None),
-                    resource_cmk_uri=parameters.get("resourceCmkUri", None),
-                    hbi_workspace=parameters.get("hbiWorkspace", None),
+                    friendly_name=parameters.get("friendly_name", None),
+                    storage_account=parameters.get("storage_account", None),
+                    key_vault=parameters.get("key_vault", None),
+                    app_insights=parameters.get("app_insights", None),
+                    container_registry=parameters.get("container_registry", None),
+                    cmk_keyvault=parameters.get("cmk_key_vault", None),
+                    resource_cmk_uri=parameters.get("resource_cmk_uri", None),
+                    hbi_workspace=parameters.get("hbi_workspace", None),
                     auth=sp_auth,
                     exist_ok=True,
                     show_output=True
