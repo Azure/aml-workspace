@@ -52,7 +52,7 @@ def main():
         ws = Workspace.get(
             name=parameters.get("name", None),
             subscription_id=azure_credentials.get("subscriptionId", ""),
-            resource_group=parameters.get("resourceGroup", None),
+            resource_group=parameters.get("resource_group", None),
             auth=sp_auth
         )
         print("::debug::Successfully loaded existing Workspace")
