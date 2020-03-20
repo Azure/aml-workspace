@@ -81,7 +81,7 @@ def main():
                 print("::debug::Creating new Workspace")
                 ws = Workspace.create(
                     name=parameters.get("name", None),
-                    subscription_id=azure_credentials.get("subscription_id", ""),
+                    subscription_id=azure_credentials.get("subscriptionId", ""),
                     resource_group=parameters.get("resource_group", None),
                     location=parameters.get("location", None),
                     create_resource_group=parameters.get("create_resource_group", False),
