@@ -13,3 +13,4 @@ jobs:
         uses: Azure/aml-workspace@master
         with:
           azureCredentials: ${{ secrets.AZURE_CREDENTIALS }}
+        continue-on-error: true
