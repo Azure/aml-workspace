@@ -11,7 +11,7 @@ inputs:
     default: "workspace.json"
 branding:
   icon: chevron-up
-  color: 'blue'
+  color: "blue"
 runs:
   using: "docker"
   image: "Dockerfile"
