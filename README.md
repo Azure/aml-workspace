@@ -1,3 +1,7 @@
+![Integration Test](https://github.com/Azure/aml-workspace/workflows/Integration%20Test/badge.svg)
+![Lint](https://github.com/Azure/aml-workspace/workflows/Lint/badge.svg)
+
+
 # Azure Machine Learning Workspace Action
 
 ## Usage
