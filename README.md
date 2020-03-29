@@ -27,7 +27,7 @@ jobs:
         # required
         azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
         # optional
-        parameters_file: compute.json
+        parameters_file: workspace.json
 ```
 
 ### Inputs
