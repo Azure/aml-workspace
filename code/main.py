@@ -114,7 +114,7 @@ def main():
 
     # Write Workspace ARM properties to config file
     print("::debug::Writing Workspace ARM properties to config file")
-    config_file_path = os.environ.get("GITHUB_WORKSPACE", default=".aml")
+    config_file_path = os.environ.get("GITHUB_WORKSPACE", default=".cloud/.azure")
     config_file_name = "aml_arm_config.json"
     ws.write_config(
         path=config_file_path,
