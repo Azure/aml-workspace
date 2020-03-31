@@ -19,8 +19,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Run action
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - name: Check Out Repository
+        id: checkout_repository
+        uses: actions/checkout@v2
 
       # AML Workspace Action
     - uses: Azure/aml-workspace
