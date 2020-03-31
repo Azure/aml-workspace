@@ -24,7 +24,7 @@ jobs:
         id: checkout_repository
         uses: actions/checkout@v2
 
-      # AML Workspace Action
+    # AML Workspace Action
     - uses: Azure/aml-workspace
       # required inputs as secrets
       with:
