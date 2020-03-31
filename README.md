@@ -94,9 +94,9 @@ Please visit [this website](https://docs.microsoft.com/en-us/python/api/azureml-
 
 The action writes the workspace Azure Resource Manager (ARM) properties to a config file, which will be used by all other Azure Machine Learning GitHub Actions to interact with the workspace.
 
-| Output Path                                      | Description                                        |
-|------------------------------------------------------|-----------------------------------------------|
-| `GITHUB_WORKSPACE/aml_arm_config.json`  | configurations to be passed to additional steps for using the workspace    |
+| Output Path                            | Description                                                             |
+|--------------------------------------- | ----------------------------------------------------------------------- |
+| `GITHUB_WORKSPACE/aml_arm_config.json` | configurations to be passed to additional steps for using the workspace |
 
 ### Other Azure Machine Learning Actions
 
