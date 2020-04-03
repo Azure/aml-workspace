@@ -8,7 +8,11 @@
 
 The Azure Machine Learning Workspace action will allow you to connect to a remote workspace so you can later run your Machine Learning experiments remotely, create production endpoints etc. If the workspace exists, it will connect to it, otherwise the action can create a new workspace. You will need to have azure credentials that allow you to create and/or connect to a workspace. The action will output a config file that needs to be passed to the next AML actions if you are looking to chain more than one AML action together.
 
-This action is one in a series of actions that are used to make ML Ops systems. Examples of these can be found at [ml-template-azure](https://github.com/machine-learning-apps/ml-template-azure) and [aml-template](https://github.com/Azure/aml-template).
+## Template repositories
+
+This action is one in a series of actions that are used to make ML Ops systems. Examples of these can be found at
+1. [ml-template-azure](https://github.com/machine-learning-apps/ml-template-azure) and
+2. [aml-template](https://github.com/Azure/aml-template).
 
 ### Example workflow
 
@@ -40,7 +44,7 @@ jobs:
 | Input | Required | Default | Description |
 | ----- | -------- | ------- | ----------- |
 | azure_credentials | x | - | Output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth`. This should be stored in your secrets |
-| parameters_file |  | `"workspace.json"` | JSON file in the `.ml/.azure` folder specifying your Azure Machine Learning Workspace details. |
+| parameters_file |  | `"workspace.json"` | JSON file in the `.cloud/.azure` folder specifying your Azure Machine Learning Workspace details. |
 
 #### Azure Credentials
 
@@ -70,26 +74,26 @@ Add the JSON output as [a secret](https://help.github.com/en/actions/configuring
 
 #### Parameters File
 
-The action expects a JSON file in the `.ml/.azure` folder in your repository, which specifies details of your Azure Machine Learning Workspace. By default, the action expects a file with the name `workspace.json`. If your JSON file has a different name, you can specify it with this parameter.
+The action expects a JSON file in the `.cloud/.azure` folder in your repository, which specifies details of your Azure Machine Learning Workspace. By default, the action expects a file with the name `workspace.json`. If your JSON file has a different name, you can specify it with this parameter.
 
-A sample file can be found in this repository in the folder `.ml/.azure`. The JSON file can include the following parameters:
+A sample file can be found in this repository in the folder `.cloud/.azure`. The JSON file can include the following parameters:
 
 | Parameter           | Required | Allowed Values                           | Default    | Description |
 | ------------------- | -------- | ---------------------------------------- | ---------- | ----------- |
 | name                | x        | str                                      | - | The workspace name. The name must be between 2 and 32 characters long. The first character of the name must be alphanumeric (letter or number), but the rest of the name may contain alphanumerics, hyphens, and underscores. Whitespace is not allowed. |
 | resourceGroup       | x        | str                                      | - | The Azure resource group that contains the workspace. |
-| createWorkspace     |          | bool: true, false                        | false      | Indicates whether to create the workspace if it doesn't exist. |
+| createWorkspace     | (only for creating) | bool                   | false      | Indicates whether to create the workspace if it doesn't exist. |
 | friendlyName        |          | str                                      | null       | A friendly name for the workspace that can be displayed in the UI. |
-| createResourceGroup |          | bool: true, false                        | true       | Indicates whether to create the resource group if it doesn't exist. |
+| createResourceGroup |          | bool                     | true       | Indicates whether to create the resource group if it doesn't exist. |
 | location            |          | str: [supported region](https://azure.microsoft.com/global-infrastructure/services/?products=machine-learning-service) | resource group location | The location of the workspace. The parameter defaults to the resource group location. |
 | sku                 |          | str: "basic", "enterprise"               | "basic"    | The SKU name (also referred as edition). |
-| storageAccount      |          | str: Azure resource ID format            | null       | An existing storage account in the Azure resource ID format (see example JSON file in `.ml/.azure`). The storage will be used by the workspace to save run outputs, code, logs etc. If None, a new storage account will be created. |
-| keyVault            |          | str: Azure resource ID format            | null       | An existing key vault in the Azure resource ID format (see example JSON file in `.ml/.azure`). The key vault will be used by the workspace to store credentials added to the workspace by the users. If None, a new key vault will be created. |
-| appInsights         |          | str: Azure resource ID format            | null       | An existing Application Insights in the Azure resource ID format (see example JSON file in `.ml/.azure`). The Application Insights will be used by the workspace to log webservices events. If None, a new Application Insights will be created. |
-| containerRegistry   |          | str: Azure resource ID format            | null       | An existing container registry in the Azure resource ID format (see example JSON file in `.ml/.azure`). The container registry will be used by the workspace to pull and push both experimentation and webservices images. If None, a new container registry will be created only when needed and not along with workspace creation. |
-| cmkKeyVault         |          | str: Azure resource ID format            | null       | The key vault containing the customer managed key in the Azure resource ID format (see example JSON file in `.ml/.azure`). |
-| resourceCmkUri      |          | str: key URI of the customer managed key | null       | The key URI of the customer managed key to encrypt the data at rest (see example JSON file in `.ml/.azure`). |
-| hbiWorkspace        |          | bool: true, false                        | false      | Specifies whether the customer data is of High Business Impact(HBI), i.e., contains sensitive business information. The default value is False. When set to True, downstream services will selectively disable logging. |
+| storageAccount      |          | str: Azure resource ID format            | null       | An existing storage account in the Azure resource ID format (see example JSON file in `.cloud/.azure`). The storage will be used by the workspace to save run outputs, code, logs etc. If None, a new storage account will be created. |
+| keyVault            |          | str: Azure resource ID format            | null       | An existing key vault in the Azure resource ID format (see example JSON file in `.cloud/.azure`). The key vault will be used by the workspace to store credentials added to the workspace by the users. If None, a new key vault will be created. |
+| appInsights         |          | str: Azure resource ID format            | null       | An existing Application Insights in the Azure resource ID format (see example JSON file in `.cloud/.azure`). The Application Insights will be used by the workspace to log webservices events. If None, a new Application Insights will be created. |
+| containerRegistry   |          | str: Azure resource ID format            | null       | An existing container registry in the Azure resource ID format (see example JSON file in `.cloud/.azure`). The container registry will be used by the workspace to pull and push both experimentation and webservices images. If None, a new container registry will be created only when needed and not along with workspace creation. |
+| cmkKeyVault         |          | str: Azure resource ID format            | null       | The key vault containing the customer managed key in the Azure resource ID format (see example JSON file in `.cloud/.azure`). |
+| resourceCmkUri      |          | str: key URI of the customer managed key | null       | The key URI of the customer managed key to encrypt the data at rest (see example JSON file in `.cloud/.azure`). |
+| hbiWorkspace        |          | bool                       | false      | Specifies whether the customer data is of High Business Impact(HBI), i.e., contains sensitive business information. The default value is False. When set to True, downstream services will selectively disable logging. |
 
 Please visit [this website](https://docs.microsoft.com/en-us/python/api/azureml-core/azureml.core.workspace(class)?view=azure-ml-py#create-name--auth-none--subscription-id-none--resource-group-none--location-none--create-resource-group-true--sku--basic---friendly-name-none--storage-account-none--key-vault-none--app-insights-none--container-registry-none--cmk-keyvault-none--resource-cmk-uri-none--hbi-workspace-false--default-cpu-compute-target-none--default-gpu-compute-target-none--exist-ok-false--show-output-true-) for more details.
 
