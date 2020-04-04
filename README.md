@@ -74,7 +74,7 @@ Add this JSON output as [a secret](https://help.github.com/en/actions/configurin
 
 #### Parameters File
 
-The action expects a JSON file in the `.cloud/.azure` folder in your repository, which specifies details of your Azure Machine Learning Workspace. By default, the action expects a file with the name `workspace.json`. If your JSON file has a different name, you can specify it with this input parameter.
+The action tries to load a JSON file with the specified name in the `.cloud/.azure` folder in your repository, which specifies details of your Azure Machine Learning Workspace. By default, the action expects a file with the name `workspace.json`. If your JSON file has a different name, you can specify it with this input parameter. Note that none of these values are required and in the absence, defaults will be created with a combination of the repo name and branch name.
 
 A sample file can be found in this repository in the folder `.cloud/.azure`. The JSON file can include the following parameters:
 
