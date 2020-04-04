@@ -43,16 +43,8 @@ def main():
         with open(parameters_file_path) as f:
             parameters = json.load(f)
     except FileNotFoundError:
-        print(f"::error::Could not find parameter file in {parameters_file_path}. Please provide a parameter file in your repository (e.g. .cloud/.azure/workspace.json).")
-        raise AMLConfigurationException(f"Could not find parameter file in {parameters_file_path}. Please provide a parameter file in your repository (e.g. .cloud/.azure/workspace.json).")
-
-    # Checking provided parameters
-    print("::debug::Checking provided parameters")
-    required_parameters_provided(
-        parameters=parameters,
-        keys=["name", "resource_group"],
-        message="Required parameter(s) not found in your parameters file for loading a workspace. Please provide a value for the following key(s): "
-    )
+        print(f"::debug::Could not find parameter file in {parameters_file_path}. Please provide a parameter file in your repository if you do not want to use default settings (e.g. .cloud/.azure/workspace.json).")
+        parameters = {}
 
     # Loading Workspace
     sp_auth = ServicePrincipalAuthentication(
