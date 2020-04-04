@@ -62,10 +62,13 @@ def main():
     )
     try:
         print("::debug::Loading existing Workspace")
+        # Default workspace and resource group name
+        repository_name = os.environ.get("GITHUB_REPOSITORY").split("/")[-1]
+
         ws = Workspace.get(
-            name=parameters.get("name", None),
+            name=parameters.get("name", repository_name),
             subscription_id=azure_credentials.get("subscriptionId", ""),
-            resource_group=parameters.get("resource_group", None),
+            resource_group=parameters.get("resource_group", repository_name),
             auth=sp_auth
         )
         print("::debug::Successfully loaded existing Workspace")
@@ -87,11 +90,11 @@ def main():
             try:
                 print("::debug::Creating new Workspace")
                 ws = Workspace.create(
-                    name=parameters.get("name", None),
+                    name=parameters.get("name", repository_name),
                     subscription_id=azure_credentials.get("subscriptionId", ""),
-                    resource_group=parameters.get("resource_group", None),
+                    resource_group=parameters.get("resource_group", repository_name),
                     location=parameters.get("location", None),
-                    create_resource_group=parameters.get("create_resource_group", False),
+                    create_resource_group=parameters.get("create_resource_group", True),
                     sku=parameters.get("sku", "basic"),
                     friendly_name=parameters.get("friendly_name", None),
                     storage_account=parameters.get("storage_account", None),
