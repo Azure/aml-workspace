@@ -104,8 +104,8 @@ def main():
                 print(f"::error::Creating new Workspace failed: {exception}")
                 raise AMLConfigurationException(f"Creating new Workspace failed with 'WorkspaceException': {exception}.")
         else:
-            print(f"::error::Loading existing Workspace failed with 'WorkspaceException' and new Workspace will not be created because parameter 'createWorkspace' was not defined or set to false in your parameter file: {exception}")
-            raise AMLConfigurationException("Loading existing Workspace failed with 'WorkspaceException' and new Workspace will not be created because parameter 'createWorkspace' was not defined or set to false in your parameter file.")
+            print(f"::error::Loading existing Workspace failed with 'WorkspaceException' and new Workspace will not be created because parameter 'create_workspace' was not defined or set to false in your parameter file: {exception}")
+            raise AMLConfigurationException("Loading existing Workspace failed with 'WorkspaceException' and new Workspace will not be created because parameter 'create_workspace' was not defined or set to false in your parameter file.")
 
     # Write Workspace ARM properties to config file
     print("::debug::Writing Workspace ARM properties to config file")
