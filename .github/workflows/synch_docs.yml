@@ -35,7 +35,7 @@ jobs:
     # Copy file to new repo
     - name: Copy file to new repo
       run: |
-        cp aml-workspace/README.md MLOps/docs/WorkspaceAction.md
+        cp aml-workspace/README.md MLOps/site/docs/aml-workspace.md
         cd MLOps
         git config --local --unset-all "http.https://github.com/.extraheader"
         git config --local user.email "action@github.com"
