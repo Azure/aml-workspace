@@ -1,38 +1,22 @@
 name: Synch Documentation
-
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
+on: [push, pull_request]
 jobs:
-  build:
-
+  synch:
     runs-on: ubuntu-latest
-
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: Check Out Repository
       id: checkout_repository
       uses: actions/checkout@v2
       with:
         path: "aml-workspace"
     
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - name: Check Out Repository
-      id: checkout_repository1
+    - name: Check Out Docs Repository
+      id: checkout_docs_repository
       uses: actions/checkout@v2
       with:
         repository: "machine-learning-apps/MLOps"
         path: "MLOps"
     
-    # Check folder structure
-    - name: Check folder structure
-      run: |
-        find | sed 's|[^/]*/|- |g'
-    
-    # Copy file to new repo
     - name: Copy file to new repo
       run: |
         cp aml-workspace/README.md MLOps/site/docs/aml-workspace.md
