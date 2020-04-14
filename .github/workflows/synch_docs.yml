@@ -1,4 +1,4 @@
-name: Test
+name: Synch Documentation
 
 on:
   push:
@@ -35,7 +35,7 @@ jobs:
     # Copy file to new repo
     - name: Copy file to new repo
       run: |
-        cp aml-workspace/README.md MLOps/cocs/WorkspaceAction.md
+        cp aml-workspace/README.md MLOps/docs/WorkspaceAction.md
         cd MLOps
         git config --local --unset-all "http.https://github.com/.extraheader"
         git config --local user.email "action@github.com"
