@@ -1,0 +1,46 @@
+name: Test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - name: Check Out Repository
+      id: checkout_repository
+      uses: actions/checkout@v2
+      with:
+        path: "aml-workspace"
+    
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - name: Check Out Repository
+      id: checkout_repository1
+      uses: actions/checkout@v2
+      with:
+        repository: "machine-learning-apps/MLOps"
+        path: "MLOps"
+    
+    # Check folder structure
+    - name: Check folder structure
+      run: |
+        find | sed 's|[^/]*/|- |g'
+    
+    # Copy file to new repo
+    - name: Copy file to new repo
+      run: |
+        cp aml-workspace/README.md MLOps/cocs/WorkspaceAction.md
+        cd MLOps
+        git config --local --unset-all "http.https://github.com/.extraheader"
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub AML Workspace Action"
+        git add .
+        git commit -m "Add changes of workspace readme" -a
+        git push "https://${{ secrets.GH_TOKEN }}@github.com/machine-learning-apps/MLOps.git" HEAD:master --force
+      continue-on-error: true
