@@ -26,7 +26,7 @@ def main():
     validate_json(
         data=azure_credentials,
         schema=azure_credentials_schema,
-        input="AZURE_CREDENTIALS"
+        input_name="AZURE_CREDENTIALS"
     )
 
     # Mask values
@@ -52,7 +52,7 @@ def main():
     validate_json(
         data=parameters,
         schema=parameters_schema,
-        input="PARAMETERS_FILE"
+        input_name="PARAMETERS_FILE"
     )
 
     # Loading Workspace
