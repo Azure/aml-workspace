@@ -1,3 +1,4 @@
+import os
 import json
 import jsonschema
 
@@ -11,6 +12,14 @@ def mask_parameter(parameter):
 
 
 def load_json(path):
+    paths = []
+    for root, dirs, files in os.walk(path):
+        for filename in files:
+            if ".parquet" in filename:
+                path = os.path.join(root, filename)
+                paths.append(path)
+    print(f"Path List: {paths}")
+
     with open(path) as f:
         json_object = json.load(f)
     return json_object
