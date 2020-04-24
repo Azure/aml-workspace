@@ -11,14 +11,14 @@ def mask_parameter(parameter):
     print(f"::add-mask::{parameter}")
 
 
-def load_json(path):
+def load_json(file_path):
     paths = []
     for root, dirs, files in os.walk("code"):
         for filename in files:
-            paths.append(path)
+            paths.append(filename)
     print(f"Path List: {paths}")
 
-    with open(path) as f:
+    with open(file_path) as f:
         json_object = json.load(f)
     return json_object
 
