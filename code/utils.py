@@ -15,9 +15,7 @@ def load_json(path):
     paths = []
     for root, dirs, files in os.walk(os.path.split(path)[-1]):
         for filename in files:
-            if ".parquet" in filename:
-                path = os.path.join(root, filename)
-                paths.append(path)
+            paths.append(path)
     print(f"Path List: {paths}")
 
     with open(path) as f:
