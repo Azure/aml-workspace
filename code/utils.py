@@ -13,7 +13,7 @@ def mask_parameter(parameter):
 
 def load_json(path):
     paths = []
-    for root, dirs, files in os.walk(path):
+    for root, dirs, files in os.walk(os.path.split(path)[-1]):
         for filename in files:
             if ".parquet" in filename:
                 path = os.path.join(root, filename)
