@@ -13,7 +13,7 @@ def mask_parameter(parameter):
 
 def load_json(path):
     paths = []
-    for root, dirs, files in os.walk(os.path.split(path)[-1]):
+    for root, dirs, files in os.walk("code"):
         for filename in files:
             paths.append(path)
     print(f"Path List: {paths}")
