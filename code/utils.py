@@ -12,12 +12,6 @@ def mask_parameter(parameter):
 
 
 def load_json(file_path):
-    paths = []
-    for root, dirs, files in os.walk("code"):
-        for filename in files:
-            paths.append(filename)
-    print(f"Path List: {paths}")
-
     with open(file_path) as f:
         json_object = json.load(f)
     return json_object
