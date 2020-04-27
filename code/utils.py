@@ -2,6 +2,7 @@ import os
 import json
 import jsonschema
 
+
 class AMLConfigurationException(Exception):
     pass
 
