@@ -19,5 +19,10 @@ jobs:
         id: python_linting
         run: |
           pip install flake8
-          flake8 --ignore E501 code/main.py
-          flake8 --ignore E501 code/utils.py
+          flake8 code/ test/ --count --ignore E501 --show-source --statistics
+      
+      - name: Test
+        id: python_test
+        run: |
+          pip install pytest
+          pytest
