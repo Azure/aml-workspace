@@ -11,7 +11,7 @@ from utils import AMLConfigurationException, mask_parameter, load_json, validate
 
 
 def main():
-    # Loading input values
+    # Loading azure credentials
     print("::debug::Loading azure credentials")
     azure_credentials = os.environ.get("INPUT_AZURE_CREDENTIALS", default="{}")
     try:
