@@ -64,7 +64,7 @@ def main():
     try:
         print("::debug::Loading existing Workspace")
         # Default workspace and resource group name
-        repository_name = os.environ.get("GITHUB_REPOSITORY").split("/")[-1]
+        repository_name = str(os.environ.get("GITHUB_REPOSITORY")).split("/")[-1]
 
         ws = Workspace.get(
             name=parameters.get("name", repository_name),
