@@ -1,4 +1,4 @@
-azure_credentials_schema ={
+azure_credentials_schema = {
     "$id": "http://azure-ml.com/schemas/azure_credentials.json",
     "$schema": "http://json-schema.org/schema",
     "title": "azure_credentials",
@@ -66,32 +66,32 @@ parameters_schema = {
         "storage_account": {
             "type": "string",
             "description": "An existing storage account in the Azure resource ID format.",
-            "pattern": "Microsoft.Storage\/storageAccounts\/.+"
+            "pattern": "Microsoft.Storage/storageAccounts/.+"
         },
         "key_vault": {
             "type": "string",
             "description": "An existing key vault in the Azure resource ID format.",
-            "pattern": "Microsoft.KeyVault\/vaults\/.+"
+            "pattern": "Microsoft.KeyVault/vaults/.+"
         },
         "app_insights": {
             "type": "string",
             "description": "An existing Application Insights in the Azure resource ID format.",
-            "pattern": "Microsoft.Insights\/components\/.+"
+            "pattern": "Microsoft.Insights/components/.+"
         },
         "container_registry": {
             "type": "string",
             "description": "An existing container registry in the Azure resource ID format.",
-            "pattern": "Microsoft.ContainerRegistry\/registries\/.+"
+            "pattern": "Microsoft.ContainerRegistry/registries/.+"
         },
         "cmk_key_vault": {
             "type": "string",
             "description": "The key vault containing the customer managed key in the Azure resource ID format.",
-            "pattern": "Microsoft.KeyVault\/vaults\/.+"
+            "pattern": "Microsoft.KeyVault/vaults/.+"
         },
         "resource_cmk_uri": {
             "type": "string",
             "description": "The key URI of the customer managed key to encrypt the data at rest.",
-            "pattern": "https:\/\/.+"
+            "pattern": "https://.+"
         },
         "hbi_workspace": {
             "type": "boolean",

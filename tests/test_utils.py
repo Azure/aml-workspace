@@ -6,7 +6,7 @@ import json
 myPath = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(myPath, "..", "code"))
 
-from utils import load_json, validate_json, AMLConfigurationException
+from utils import validate_json, AMLConfigurationException
 from schema import azure_credentials_schema, parameters_schema
 
 
