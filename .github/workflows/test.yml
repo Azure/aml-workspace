@@ -18,5 +18,6 @@ jobs:
       - name: Test
         id: python_test
         run: |
+          ls
           pip install pytest jsonschema azureml-sdk
           pytest
