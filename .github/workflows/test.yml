@@ -1,8 +1,8 @@
-name: Lint and Test
+name: Test
 on: [push, pull_request]
 jobs:
-  lint:
-    name: Lint
+  test:
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python 3.7
@@ -14,12 +14,6 @@ jobs:
       - name: Check Out Repository
         id: checkout_repository
         uses: actions/checkout@v1
-
-      - name: Lint
-        id: python_linting
-        run: |
-          pip install flake8
-          flake8 code/ test/ --count --ignore E501 --show-source --statistics
       
       - name: Test
         id: python_test
