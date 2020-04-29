@@ -1,4 +1,5 @@
 # Byte-compiled / optimized / DLL files
+.vs/
 __pycache__/
 *.py[cod]
 *$py.class
@@ -127,5 +128,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-.vs/VSWorkspaceState.json
-.vs/aml-workspace/v16/.suo
+.vs/
