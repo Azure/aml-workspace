@@ -10,12 +10,6 @@ def mask_parameter(parameter):
     print(f"::add-mask::{parameter}")
 
 
-def load_json(file_path):
-    with open(file_path) as f:
-        json_object = json.load(f)
-    return json_object
-
-
 def validate_json(data, schema, input_name):
     validator = jsonschema.Draft7Validator(schema)
     errors = validator.iter_errors(data)

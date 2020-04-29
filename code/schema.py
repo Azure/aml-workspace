@@ -25,8 +25,7 @@ azure_credentials_schema ={
     }
 }
 
-
-azure_workspace_schema = {
+parameters_schema = {
     "$id": "http://azure-ml.com/schemas/workspace.json",
     "$schema": "http://json-schema.org/schema",
     "title": "aml-workspace",
