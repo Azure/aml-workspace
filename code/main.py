@@ -8,9 +8,7 @@ from adal.adal_error import AdalError
 from msrest.exceptions import AuthenticationError
 from json import JSONDecodeError
 from utils import AMLConfigurationException, mask_parameter, load_json, validate_json
-
-azure_credentials_schema = load_json(file_path=os.path.join("code", "azure_credential_schema.json"))
-parameters_schema = load_json(file_path=os.path.join("code", "workspace_schema.json"))
+from schema import azure_credentials_schema, azure_workspace_schema
 
 
 def main():
@@ -27,7 +25,7 @@ def main():
     print("::debug::Checking provided parameters")
     validate_json(
         data=azure_credentials,
-        schema=azure_credentials_schema,
+        schema=json.loads(azure_credentials_schema),
         input_name="AZURE_CREDENTIALS"
     )
 
@@ -52,7 +50,7 @@ def main():
     print("::debug::Checking provided parameters")
     validate_json(
         data=parameters,
-        schema=parameters_schema,
+        schema=json.loads(azure_workspace_schema),
         input_name="PARAMETERS_FILE"
     )
 
