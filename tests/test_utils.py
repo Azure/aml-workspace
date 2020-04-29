@@ -34,7 +34,7 @@ def test_validate_json_valid_inputs():
     Unit test to check the validate_json function with valid inputs
     """
     json_object = {}
-    schema_path = os.path.join("code", "schemas", "workspace_schema.json")
+    schema_path = os.path.join("schema", "workspace_schema.json")
     schema_object = load_json(
         file_path=schema_path
     )
@@ -52,7 +52,7 @@ def test_validate_json_invalid_json():
     json_object = {
         "sku": ""
     }
-    schema_path = os.path.join("code", "schemas", "workspace_schema.json")
+    schema_path = os.path.join("schema", "workspace_schema.json")
     schema_object = load_json(
         file_path=schema_path
     )
