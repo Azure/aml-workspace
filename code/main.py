@@ -8,7 +8,7 @@ from adal.adal_error import AdalError
 from msrest.exceptions import AuthenticationError
 from json import JSONDecodeError
 from utils import AMLConfigurationException, mask_parameter, validate_json
-from schema import azure_credentials_schema, parameters_schema
+from schemas import azure_credentials_schema, parameters_schema
 
 
 def main():
