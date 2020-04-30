@@ -52,6 +52,7 @@ def test_validate_json_incorrect_field():
             input_name="PARAMETERS_FILE"
         )
 
+
 def test_validate_json_invalid_json():
     """
     Unit test to check the validate_json function with invalid json_object inputs
