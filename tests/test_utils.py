@@ -7,7 +7,7 @@ myPath = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(myPath, "..", "code"))
 
 from utils import validate_json, AMLConfigurationException
-from schemas import azure_credentials_schema, parameters_schema
+from schemas import parameters_schema
 
 
 def test_validate_json_valid_inputs():
@@ -48,7 +48,7 @@ def test_validate_json_incorrect_field():
     with pytest.raises(AMLConfigurationException):
         assert validate_json(
             data=json_object,
-            schema=azure_credentials_schema,
+            schema=parameters_schema,
             input_name="PARAMETERS_FILE"
         )
 
@@ -63,7 +63,7 @@ def test_validate_json_invalid_json():
     with pytest.raises(AMLConfigurationException):
         assert validate_json(
             data=json_object,
-            schema=azure_credentials_schema,
+            schema=parameters_schema,
             input_name="PARAMETERS_FILE"
         )
 
