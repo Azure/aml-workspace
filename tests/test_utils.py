@@ -36,6 +36,20 @@ def test_validate_json_valid_inputs():
         input_name="PARAMETERS_FILE"
     )
 
+def test_validate_json_incorrect_field():
+    """
+    Unit test to check if field incorrect
+    """
+    json_object = {
+        "name": "workspace-name",
+        "resour_group": "resource-group-name",
+    }
+    with pytest.raises(AMLConfigurationException):
+        assert validate_json(
+            data=json_object,
+            schema=azure_credentials_schema,
+            input_name="PARAMETERS_FILE"
+        )
 
 def test_validate_json_invalid_json():
     """
