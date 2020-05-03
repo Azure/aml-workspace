@@ -82,10 +82,7 @@ def main():
     except AdalError as exception:
         print(f"::error::Active Directory Authentication Library Error: {exception}")
         raise AdalError
-    except ProjectSystemException as exception:
-        print(f"::error::Workspace authorizationfailed: {exception}")
-        raise ProjectSystemException
-    except WorkspaceException as exception:
+    except (WorkspaceException, ProjectSystemException) as exception:
         print(f"::debug::Loading existing Workspace failed: {exception}")
         if parameters.get("create_workspace", False):
             try:
