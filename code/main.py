@@ -7,13 +7,13 @@ from azureml.core.authentication import ServicePrincipalAuthentication
 from adal.adal_error import AdalError
 from msrest.exceptions import AuthenticationError
 from json import JSONDecodeError
-from utils import AMLConfigurationException, required_parameters_provided, mask_parameter
+from utils import AMLConfigurationException, mask_parameter, validate_json
+from schemas import azure_credentials_schema, parameters_schema
 
 
 def main():
-    # Loading input values
-    print("::debug::Loading input values")
-    parameters_file = os.environ.get("INPUT_PARAMETERS_FILE", default="workspace.json")
+    # Loading azure credentials
+    print("::debug::Loading azure credentials")
     azure_credentials = os.environ.get("INPUT_AZURE_CREDENTIALS", default="{}")
     try:
         azure_credentials = json.loads(azure_credentials)
@@ -23,10 +23,10 @@ def main():
 
     # Checking provided parameters
     print("::debug::Checking provided parameters")
-    required_parameters_provided(
-        parameters=azure_credentials,
-        keys=["tenantId", "clientId", "clientSecret", "subscriptionId"],
-        message="Required parameter(s) not found in your azure credentials saved in AZURE_CREDENTIALS secret for logging in to the workspace. Please provide a value for the following key(s): "
+    validate_json(
+        data=azure_credentials,
+        schema=azure_credentials_schema,
+        input_name="AZURE_CREDENTIALS"
     )
 
     # Mask values
@@ -38,6 +38,7 @@ def main():
 
     # Loading parameters file
     print("::debug::Loading parameters file")
+    parameters_file = os.environ.get("INPUT_PARAMETERS_FILE", default="workspace.json")
     parameters_file_path = os.path.join(".cloud", ".azure", parameters_file)
     try:
         with open(parameters_file_path) as f:
@@ -45,6 +46,14 @@ def main():
     except FileNotFoundError:
         print(f"::debug::Could not find parameter file in {parameters_file_path}. Please provide a parameter file in your repository if you do not want to use default settings (e.g. .cloud/.azure/workspace.json).")
         parameters = {}
+
+    # Checking provided parameters
+    print("::debug::Checking provided parameters")
+    validate_json(
+        data=parameters,
+        schema=parameters_schema,
+        input_name="PARAMETERS_FILE"
+    )
 
     # Loading Workspace
     sp_auth = ServicePrincipalAuthentication(
@@ -55,7 +64,7 @@ def main():
     try:
         print("::debug::Loading existing Workspace")
         # Default workspace and resource group name
-        repository_name = os.environ.get("GITHUB_REPOSITORY").split("/")[-1]
+        repository_name = str(os.environ.get("GITHUB_REPOSITORY")).split("/")[-1]
 
         ws = Workspace.get(
             name=parameters.get("name", repository_name),
@@ -73,10 +82,7 @@ def main():
     except AdalError as exception:
         print(f"::error::Active Directory Authentication Library Error: {exception}")
         raise AdalError
-    except ProjectSystemException as exception:
-        print(f"::error::Workspace authorizationfailed: {exception}")
-        raise ProjectSystemException
-    except WorkspaceException as exception:
+    except (WorkspaceException, ProjectSystemException) as exception:
         print(f"::debug::Loading existing Workspace failed: {exception}")
         if parameters.get("create_workspace", False):
             try:
