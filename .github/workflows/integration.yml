@@ -1,5 +1,5 @@
 name: Integration Test
-on: [push]
+on: [push , pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -7,10 +7,12 @@ jobs:
       - name: Check Out Repository
         id: checkout_repository
         uses: actions/checkout@master
-      
+        with:
+          ref: ${{github.ref}}
+
       - name: Self test
         id: selftest
-        uses: Azure/aml-workspace@master
+        uses: ./
         with:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
-        continue-on-error: true
+          parameters_file: "test_workspace_resource_exists.json"
