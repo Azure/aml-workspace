@@ -16,7 +16,7 @@ jobs:
         uses: ./
         with:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
-          parameters_file: "test_workspace.json"
+          parameters_file: "test/test_workspace.json"
 
       # connect to above created workspace
       - name: Connect Workspace
@@ -25,7 +25,7 @@ jobs:
         uses: ./
         with:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
-          parameters_file: "test_workspace.json"
+          parameters_file: "test/test_workspace.json"
       
       # todo : add cleanup logic
       # - name: Azure Login
