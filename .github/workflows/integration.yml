@@ -10,9 +10,33 @@ jobs:
         with:
           ref: ${{github.ref}}
 
-      - name: Self test
-        id: selftest
+      # create a new workspace
+      - name: Create Workspace
+        id: ws_create
         uses: ./
         with:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
-          parameters_file: "test_workspace_resource_exists.json"
+          parameters_file: "test_workspace.json"
+
+      # connect to above created workspace
+      - name: Connect Workspace
+        if: steps.ws_create.outputs.status == 'success'
+        id: ws_connect
+        uses: ./
+        with:
+          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+          parameters_file: "test_workspace.json"
+      
+      # todo : add cleanup logic
+      # - name: Azure Login
+      #   uses: azure/login@v1
+      #   with:
+      #     creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+
+      # - name: Azure CLI script
+      #   uses: azure/CLI@v1
+      #   with:
+      #     azcliversion: 2.0.72
+      #     inlineScript: |
+      #       az ml workspace delete -id "" -g aml_workspace_intTest_rg -w aml_workspace_intTest     
