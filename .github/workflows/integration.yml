@@ -1,5 +1,5 @@
 name: Integration Test
-on: [push]
+on: [push , pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -7,10 +7,22 @@ jobs:
       - name: Check Out Repository
         id: checkout_repository
         uses: actions/checkout@master
-      
-      - name: Self test
-        id: selftest
-        uses: Azure/aml-workspace@master
+        with:
+          ref: ${{github.ref}}
+
+      # create a new workspace
+      - name: Create Workspace
+        id: ws_create
+        uses: ./
         with:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
-        continue-on-error: true
+          parameters_file: "test/test_workspace.json"
+
+      # connect to above created workspace
+      - name: Connect Workspace
+        if: steps.ws_create.outputs.status == 'success'
+        id: ws_connect
+        uses: ./
+        with:
+          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+          parameters_file: "test/test_workspace.json"
