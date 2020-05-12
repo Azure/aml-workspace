@@ -2,17 +2,21 @@
 ![Lint](https://github.com/Azure/aml-workspace/workflows/Lint/badge.svg)
 
 
-# Azure Machine Learning Workspace Action
+# GitHub Action for connecting to Azure Machine Learning Workspace
+
 
 ## Usage
 
-The Azure Machine Learning Workspace action will allow you to create or connect to a Azure Machine Learning workspace so you can later run your Machine Learning experiments remotely, create production endpoints etc. If the workspace exists, it will connect to it, otherwise the action can create a new workspace based on the provided parameters. You will need to provide azure credentials that allow you to create and/or connect to a workspace. The action will output a config file that needs to be passed to the next AML actions if you are looking to chain more than one AML action together.
+The connect to Azure Machine Learning Workspace action will login / connect to [Azure Machine Learning](https://azure.microsoft.com/en-us/services/machine-learning/).
 
-## Template repositories
+Get started today with a [free Azure account](https://azure.com/free/open-source)!
 
-This action is one in a series of actions that can be used to setup an ML Ops process. Examples of these can be found at
-1. Simple example: [ml-template-azure](https://github.com/machine-learning-apps/ml-template-azure) and
-2. Comprehensive example: [aml-template](https://github.com/Azure/aml-template).
+This repository contains GitHub Action for connecting to an Azure Machine Learning workspace. You can later use this context to train your model remotely, deploy your models to endpoints etc. You can also use this action to create a new workspace, if you provide appropriate parameters. 
+
+
+## Create Azure Machine Learning and deploy an machine learning model using GitHub Actions
+
+This action is one in a series of actions that can be used to setup an ML Ops process. Examples of these can be found at [aml-template](https://github.com/Azure/aml-template).
 
 ### Example workflow
 
@@ -44,9 +48,9 @@ jobs:
 | Input | Required | Default | Description |
 | ----- | -------- | ------- | ----------- |
 | azure_credentials | x | - | Output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth`. This should be stored in your secrets |
-| parameters_file |  | `"workspace.json"` | JSON file in the `.cloud/.azure` folder specifying your Azure Machine Learning Workspace details. |
+| parameters_file |  | `"workspace.json"` | We expect a JSON file in the `.cloud/.azure` folder in your repository specifying your Azure Machine Learning Workspace details. If you have want to provide these details in a file other than "workspace.json" you need to provide this input in the action. |
 
-#### Azure Credentials
+#### azure_credentials ( Azure Credentials ) 
 
 Install the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) on your computer or use the Cloud CLI and execute the following command to generate the required credentials:
 
@@ -72,7 +76,7 @@ This will generate the following JSON output:
 
 Add this JSON output as [a secret](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets#creating-encrypted-secrets) with the name `AZURE_CREDENTIALS` in your GitHub repository.
 
-#### Parameters File
+#### parameters_file (Parameters File)
 
 The action tries to load a JSON file in the `.cloud/.azure` folder in your repository, which specifies details of your Azure Machine Learning Workspace. By default, the action expects a file with the name `workspace.json`. If your JSON file has a different name, you can specify it with this input parameter. Note that none of these values are required and in the absence, defaults will be created with the repo name.
 
