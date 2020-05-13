@@ -56,7 +56,7 @@ jobs:
 | Input | Required | Default | Description |
 | ----- | -------- | ------- | ----------- |
 | azure_credentials | x | - | Output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth`. This should be stored in your secrets |
-| parameters_file |  | `"workspace.json"` | We expect a JSON file in the `.cloud/.azure` folder in your repository specifying your Azure Machine Learning Workspace details. If you have want to provide these details in a file other than "workspace.json" you need to provide this input in the action. |
+| parameters_file |  | `"workspace.json"` | We expect a JSON file in the `.cloud/.azure` folder in root of your repository specifying your Azure Machine Learning Workspace details. If you have want to provide these details in a file other than "workspace.json" you need to provide this input in the action. |
 
 #### azure_credentials ( Azure Credentials ) 
 
