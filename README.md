@@ -2,7 +2,7 @@
 ![Lint and Test](https://github.com/Azure/aml-workspace/workflows/Lint%20and%20Test/badge.svg?branch=master&event=push)
 
 
-# GitHub Action for connecting to Azure Machine Learning Workspace
+# GitHub Action for creating or connecting to Azure Machine Learning Workspace
 
 
 ## Usage
