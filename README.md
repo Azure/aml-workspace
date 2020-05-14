@@ -7,24 +7,24 @@
 
 ## Usage
 
-The connect to Azure Machine Learning Workspace action will login / connect to [Azure Machine Learning](https://azure.microsoft.com/en-us/services/machine-learning/).
+The aml-workspace action will login / connect to [Azure Machine Learning](https://azure.microsoft.com/en-us/services/machine-learning/).
 
 Get started today with a [free Azure account](https://azure.com/free/open-source)!
 
-This repository contains GitHub Action for connecting to an Azure Machine Learning workspace. You can later use this context to train your model remotely, deploy your models to endpoints etc. You can also use this action to create a new workspace, if you provide appropriate parameters. 
+This repository contains a GitHub Action for connecting to an Azure Machine Learning workspace. You can later use this context to train your model remotely, deploy your models to endpoints etc. You can also use this action to create a new workspace, if you provide the appropriate parameters. 
 
 
-## Create Azure Machine Learning and deploy an machine learning model using GitHub Actions
+## Utilize GitHub Actions and Azure Machine Learning to deploy a machine learning model
 
 This action is one in a series of actions that can be used to setup an ML Ops process. **We suggest getting started with one of our template repositories**, which will allow you to create an ML Ops process in less than 5 minutes.
 
 1. **Simple template repository: [ml-template-azure](https://github.com/machine-learning-apps/ml-template-azure)**
 
-    Go to this template and follow the getting started guide to setup an ML Ops process within minutes and learn how to use the Azure       Machine Learning GitHub Actions in combination. This template demonstrates a very simple process for training and deploying machine     learning models.
+    Go to this template and follow the getting started guide to setup an ML Ops process within minutes and learn how to use the Azure Machine Learning GitHub Actions in combination. This template demonstrates a very simple process for training and deploying machine learning models.
 
 2. **Advanced template repository: [aml-template](https://github.com/Azure/aml-template)**
 
-    This template demonstrates how approval processes can be included in the process and how training and deployment workflows can be       splitted. It also shows how workflows (e.g. deployment) can be triggered from pull requests. More enhancements will be added to this template in the future to make it more enterprise ready.
+    This template demonstrates how the actions can be extended to include the normal pull request approval process and how training and deployment workflows can be split. More enhancements will be added to this template in the future to make it more enterprise ready.
     
     
 ## Example workflow for connecting to Azure Machine Learning Workspace
