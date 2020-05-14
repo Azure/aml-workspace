@@ -14,7 +14,7 @@ Get started today with a [free Azure account](https://azure.com/free/open-source
 This repository contains a GitHub Action for connecting to an Azure Machine Learning workspace. You can later use this context to train your model remotely, deploy your models to endpoints etc. You can also use this action to create a new workspace, if you provide the appropriate parameters. 
 
 
-## Utilize GitHub Actions and Azure Machine Learning to deploy a machine learning model
+## Utilize GitHub Actions and Azure Machine Learning to train and deploy a machine learning model
 
 This action is one in a series of actions that can be used to setup an ML Ops process. **We suggest getting started with one of our template repositories**, which will allow you to create an ML Ops process in less than 5 minutes.
 
