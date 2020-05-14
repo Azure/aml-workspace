@@ -27,7 +27,7 @@ This action is one in a series of actions that can be used to setup an ML Ops pr
     This template demonstrates how the actions can be extended to include the normal pull request approval process and how training and deployment workflows can be split. More enhancements will be added to this template in the future to make it more enterprise ready.
     
     
-## Example workflow for connecting to Azure Machine Learning Workspace
+## Example workflow for creating or connecting to Azure Machine Learning Workspace
 
 
 ```yaml
