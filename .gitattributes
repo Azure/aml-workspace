@@ -7,7 +7,7 @@
 # Set the merge driver for project and solution files
 ###############################################################################
 *.sh        text eol=lf
-*.py        text diff=python
+*.py        text eol=lf diff=python
 *.json      text
 *.yaml      text
 *.yml       text
