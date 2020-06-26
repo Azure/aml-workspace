@@ -55,11 +55,20 @@ def main():
         input_name="PARAMETERS_FILE"
     )
 
+    # Define target cloud
+    if azure_credentials.get("resourceManagerEndpointUrl", "").startswith("https://management.usgovcloudapi.net"):
+        cloud = "AzureUSGovernment"
+    elif azure_credentials.get("resourceManagerEndpointUrl", "").startswith("https://management.chinacloudapi.cn"):
+        cloud = "AzureChinaCloud"
+    else:
+        cloud = "AzureCloud"
+
     # Loading Workspace
     sp_auth = ServicePrincipalAuthentication(
         tenant_id=azure_credentials.get("tenantId", ""),
         service_principal_id=azure_credentials.get("clientId", ""),
-        service_principal_password=azure_credentials.get("clientSecret", "")
+        service_principal_password=azure_credentials.get("clientSecret", ""),
+        cloud=cloud
     )
     try:
         print("::debug::Loading existing Workspace")
