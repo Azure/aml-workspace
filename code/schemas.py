@@ -59,11 +59,6 @@ parameters_schema = {
             "type": "string",
             "description": "The location of the workspace."
         },
-        "sku": {
-            "type": "string",
-            "description": "The SKU name (also referred as edition).",
-            "pattern": "basic|enterprise"
-        },
         "storage_account": {
             "type": "string",
             "description": "An existing storage account in the Azure resource ID format.",
