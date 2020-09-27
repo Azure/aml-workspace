@@ -102,7 +102,6 @@ def main():
                     resource_group=parameters.get("resource_group", repository_name),
                     location=parameters.get("location", None),
                     create_resource_group=parameters.get("create_resource_group", True),
-                    sku=parameters.get("sku", "basic"),
                     friendly_name=parameters.get("friendly_name", None),
                     storage_account=parameters.get("storage_account", None),
                     key_vault=parameters.get("key_vault", None),
