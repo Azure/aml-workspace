@@ -4,6 +4,11 @@
 
 # GitHub Action for creating or connecting to Azure Machine Learning Workspace
 
+## Deprecation notice
+
+This Action is deprecated. Instead, consider using the [CLI (v2)](https://docs.microsoft.com/azure/machine-learning/how-to-configure-cli) to manage and interact with Azure Machine Learning workspaces in GitHub Actions.
+
+**Important:** The CLI (v2) is not recommended for production use while in preview.
 
 ## Usage
 
